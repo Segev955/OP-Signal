@@ -14,7 +14,7 @@ void sig_handler(int signum) {
         case SIGCHLD:
             printf("I am in SIGCHLD\n");
             fflush(stdout);
-            raise(SIGUSR1);
+            kill(getpid(), SIGUSR1);
             break;
         case SIGUSR1:
             printf("I am in SIGUSR1\n");
@@ -28,7 +28,9 @@ void sig_handler(int signum) {
             fflush(stdout);
             exit(1);
         case SIGTSTP:
-            printf("\nI am in SIGTSTP, write 'fg' to continue\n");
+            printf("\nI am in SIGTSTP\n");
+            printf("Allow pause for SIGCONT\n");
+            printf("write 'fg' to continue\n");
 //            break;
             raise(SIGSTOP);
         case SIGCONT:
